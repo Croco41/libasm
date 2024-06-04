@@ -10,8 +10,8 @@ global ft_strcpy
 ;1er arg rdi, 2 eme arg rsi
 ft_strcpy:
 
-	push		rsi
-	push		rdi
+	;push		rsi
+	;push		rdi
 	mov			rax, rdi
 
 	test		rsi, rsi  ; Vérifier si le premier argument (rsi) est NULL
@@ -27,12 +27,12 @@ ft_strcpy:
     jmp			.copy_char          ; Sauter à next_char pour continuer la boucle
 
 .return_null:
-    xor			rax, rax              ; Mettre rax à 0 pour indiquer un retour NULL
-	pop			rdi                 ; Restaurer le registre rsi
-    pop			rsi                 ; Restaurer le registre rdi
+    ;xor			rax, rax              ; Mettre rax à 0 pour indiquer un retour NULL
+	;pop			rdi                 ; Restaurer le registre rsi
+    ;pop			rsi                 ; Restaurer le registre rdi
     ret
 
 .return:
-	pop			rdi
-	pop			rsi
+	;pop			rdi
+	;pop			rsi
     ret                   ; Retourner la valeur de rdi

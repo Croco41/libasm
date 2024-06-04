@@ -5,11 +5,11 @@ NASM = nasm
 FLAGS = -f elf64
 AR = ar rcs # Commande pour archiver les fichiers objets en une bibliothèque statique.
 RM = rm -f
-SRCS = srcs/ft_strlen.s srcs/ft_strcpy.s srcs/ft_strcmp.s
+SRCS = srcs/ft_strlen.s srcs/ft_strcpy.s srcs/ft_strcmp.s srcs/ft_write.s srcs/ft_read.s
 OBJS = $(SRCS:.s=.o)
 TEST = test
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CC = clang 
+CFLAGS = -Wall -Wextra -Werror -fPIC
 
 all: $(NAME) $(TEST)
 
