@@ -21,6 +21,7 @@ extern char *ft_strcpy(char *dest, const char *src);
 extern int ft_strcmp(const char *s1, const char *s2);
 extern ssize_t ft_write(int fd, const void *buf, size_t count);
 extern ssize_t ft_read(int fd, void *buf, size_t count);
+extern char *ft_strdup(const char *s);
 
 // Fonctions de test
 void test_strlen(void)
@@ -320,12 +321,123 @@ void test_read(void)
 		printf(RED " |--> HOUSTON, ON A UN PROBLEME...\n\n" RESET);
 }
 
+// void test_strdup(void)
+// {
+// 	printf(ORANGE "=====================================================================\n");
+// 	printf("=   Test de strdup :   =\n");
+// 	printf("=====================================================================\n\n" RESET);
+
+// 	char *strs[] = {
+// 		"Chaîne normale",
+// 		"",
+// 		"Chaîne un peu plus longue pour tester strdup",
+// 		NULL};
+
+// 	char *result;
+// 	for (int i = 0; strs[i] != NULL; i++)
+// 	{
+// 		printf(PURPLE "Original : %s\n" RESET, strs[i]);
+
+// 		errno = 0; // Initialiser errno
+// 		result = ft_strdup(strs[i]);
+// 		int ft_errno = errno; // Sauvegarder errno après l'appel
+
+// 		if (result == NULL)
+// 		{
+// 			printf(RED "ft_strdup a retourné NULL, errno = %d\n" RESET, ft_errno);
+// 		}
+// 		else
+// 		{
+// 			printf("ft_strdup : %s\n", result);
+// 			free(result);
+// 		}
+
+// 		errno = 0; // Initialiser errno
+// 		result = strdup(strs[i]);
+// 		int std_errno = errno; // Sauvegarder errno après l'appel
+
+// 		if (result == NULL)
+// 		{
+// 			printf(RED "strdup a retourné NULL, errno = %d\n" RESET, std_errno);
+// 		}
+// 		else
+// 		{
+// 			printf("strdup : %s\n", result);
+// 			free(result);
+// 		}
+
+// 		if ((result == NULL) || (result != NULL && strcmp(result, strs[i]) == 0))
+// 			printf(GREEN " |--> YOUPI C'EST BON !\n\n" RESET);
+// 		else
+// 			printf(RED " |--> HOUSTON, ON A UN PROBLEME...\n\n" RESET);
+// 	}
+// }
+
+void test_strdup(void)
+{
+	printf(ORANGE "=====================================================================\n");
+	printf("=   Test de strdup :   =\n");
+	printf("=====================================================================\n\n" RESET);
+
+	char *src[] = {
+		"",																																																																																																																				  // Chaîne vide
+		"Ceci est une chaîne normale\n",																																																																																																												  // Chaînes normales
+		"Chaîne longue : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n", // Chaînes différente
+		NULL																																																																																																																			  // Fin du tableau
+	};
+
+	char *test_title[] = {
+		"On duplique une chaîne vide\n",
+		"On duplique une chaîne normale\n",
+		"On duplique une longue chaîne\n",
+		NULL};
+
+	char *ft_dest;
+	char *std_dest;
+	for (int i = 0; src[i] != NULL; i++)
+	{
+		printf(PURPLE "%s" RESET, test_title[i]);
+		printf("Adresse de la chaîne source : %p\n", (void *)src[i]);
+		ft_dest = ft_strdup(src[i]);
+		if (ft_dest == NULL)
+		{
+			perror("malloc");
+			return;
+		}
+
+		std_dest = strdup(src[i]);
+		if (std_dest == NULL)
+		{
+			perror("malloc");
+			free(ft_dest);
+			return;
+		}
+
+		printf("Adresse de la chaîne destination (ft_strdup) : %p\n", (void *)ft_dest);
+		printf("Adresse de la chaîne destination (strdup standard) : %p\n\n", (void *)std_dest);
+		printf("ft_strdup :         Destination = %s\n", ft_dest);
+		printf("strdup standard :    Destination = %s", std_dest);
+		if (strcmp(ft_dest, std_dest) == 0)
+			printf(GREEN " |--> YOUPI C'EST BON !\n\n" RESET);
+		else
+			printf(RED " |--> HOUSTON, ON A UN PROBLEME...\n\n" RESET);
+	}
+	free(ft_dest);
+	free(std_dest);
+}
+
 int main()
 {
 	// test_strlen(); // Tester ft_strlen
 	// test_strcpy(); // Tester ft_strcpy
 	// test_strcmp();
-	test_write();
-	test_read();
+	// test_write();
+	// getchar();
+
+	// test_read();
+	// getchar();
+
+	test_strdup();
+	getchar();
 	return 0;
 }
